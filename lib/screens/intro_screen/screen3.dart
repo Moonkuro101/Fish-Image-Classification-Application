@@ -1,3 +1,4 @@
+import 'package:fish_finder/material/font_and_color.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -45,7 +46,7 @@ class Screen3 extends StatelessWidget {
         Center(
           child: Text(
             'เข้าร่วมชุมชนนักตกปลา!\nแบ่งปันการจับของคุณ',
-            style: GoogleFonts.notoSansThai(
+            style: fontThai.copyWith(
                 fontWeight: FontWeight.bold,
                 fontSize: 25,
                 color: const Color(0xff3652AD)),

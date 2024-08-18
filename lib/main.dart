@@ -1,4 +1,5 @@
 import 'package:fish_finder/screens/intro_screen/intro_screen.dart';
+import 'package:fish_finder/screens/login_and_create/login.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -28,7 +29,7 @@ class Myapp extends StatelessWidget {
     return MaterialApp(
       theme: theme,
       debugShowCheckedModeBanner: false,
-      home: const IntroScreen(),
+      home:  IntroScreen(),
     );
   }
 }
