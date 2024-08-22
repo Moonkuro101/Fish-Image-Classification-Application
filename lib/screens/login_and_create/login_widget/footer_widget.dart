@@ -1,5 +1,6 @@
 import 'package:fish_finder/material/font_and_color.dart';
 import 'package:fish_finder/screens/login_and_create/create_account.dart';
+import 'package:fish_finder/screens/login_and_create/login.dart';
 import 'package:flutter/material.dart';
 
 class FooterWidget extends StatelessWidget {
@@ -45,13 +46,18 @@ class FooterWidget extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           TextButton(
-            onPressed: () {isLogin ?
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const CreateAccount(),
-                ),
-              ):
-              Navigator.of(context).pop();
+            onPressed: () {
+              isLogin
+                  ? Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => const CreateAccount(),
+                      ),
+                    )
+                  : Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => const LoginScreen(),
+                      ),
+                    );
             },
             child: Text.rich(
               TextSpan(
