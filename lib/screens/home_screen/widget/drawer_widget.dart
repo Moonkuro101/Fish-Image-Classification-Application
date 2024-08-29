@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fish_finder/material/font_and_color.dart';
 import 'package:flutter/material.dart';
 
@@ -6,6 +7,9 @@ class DrawerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+    
+
     return Drawer(
       backgroundColor: Colors.greenAccent, // Change to your desired color
       child: ListView(
@@ -32,8 +36,8 @@ class DrawerWidget extends StatelessWidget {
                         EdgeInsets.only(top: 20.0), // Adjust padding as needed
                     child: CircleAvatar(
                       radius: 50, // Adjust the size of CircleAvatar
-                      backgroundImage: AssetImage(
-                          'assets/images/drawer/profile.png'), // Replace with your profile image
+                      backgroundImage: NetworkImage(
+                          deafualtImageUrl), // Replace with your profile image
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -58,7 +62,7 @@ class DrawerWidget extends StatelessWidget {
                     height: 10,
                   ),
                   Text(
-                    'UserEmail',
+                    user != null ? user.email! : '',
                     style: fontEnglish.copyWith(
                       color: const Color(0xff201658),
                       fontWeight: FontWeight.bold,

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fish_finder/material/font_and_color.dart';
 import 'package:fish_finder/screens/login_and_create/login.dart';
-import 'package:fish_finder/screens/main_screen/menu_screen.dart';
+import 'package:fish_finder/screens/home_screen/menu_screen.dart';
 import 'package:flutter/material.dart';
 
 class BodyForm extends StatefulWidget {
@@ -82,7 +82,7 @@ class _BodyFormState extends State<BodyForm> {
             .set({
           'username': _enteredUserName,
           'email': _enteredEmail,
-          'image_url': deafualtImage_Url,
+          'image_url': deafualtImageUrl,
         });
         if (!mounted) return;
 
@@ -233,7 +233,7 @@ class _BodyFormState extends State<BodyForm> {
                       _obscureText = !_obscureText;
                     });
                   },
-                  icon: Icon(Icons.remove_red_eye_sharp),
+                  icon: const Icon(Icons.remove_red_eye_sharp),
                 ),
               ),
             ),

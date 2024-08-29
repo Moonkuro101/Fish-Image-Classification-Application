@@ -74,6 +74,7 @@ flutter:
     - assets/images/login/
     - assets/images/drawer/
     - assets/images/carousel/
+    - assets/images/
 
 
     # - assets\images\main\

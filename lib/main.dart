@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fish_finder/material/font_and_color.dart';
 import 'package:fish_finder/screens/login_and_create/login.dart';
-import 'package:fish_finder/screens/main_screen/menu_screen.dart';
+import 'package:fish_finder/screens/tab_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'package:fish_finder/screens/intro_screen/intro_screen.dart';
@@ -15,11 +17,19 @@ final kColorScheme = ColorScheme.fromSeed(
 );
 
 final theme = ThemeData(
-  useMaterial3: true,
-  textTheme: GoogleFonts.interTextTheme().copyWith(
-    titleLarge: GoogleFonts.inter(
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    selectedLabelStyle: fontEnglish.copyWith(
       fontWeight: FontWeight.bold,
+      fontSize: 16.0,
+      color: Colors.blue,
     ),
+    unselectedLabelStyle: fontEnglish.copyWith(
+      fontWeight: FontWeight.normal,
+      fontSize: 14.0,
+      color: Colors.grey,
+    ),
+    selectedItemColor: Colors.blue,
+    unselectedItemColor: Colors.grey,
   ),
 );
 
@@ -28,12 +38,18 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  // await addDummyFishes();
+
   SharedPreferences prefs = await SharedPreferences.getInstance();
   bool hasSeenIntro = prefs.getBool('hasSeenIntro') ?? false;
 
-  runApp(Myapp(
-    hasSeenIntro: hasSeenIntro,
-  ));
+  runApp(
+    ProviderScope(
+      child: Myapp(
+        hasSeenIntro: hasSeenIntro,
+      ),
+    ),
+  );
 }
 
 class Myapp extends StatelessWidget {
@@ -52,9 +68,9 @@ class Myapp extends StatelessWidget {
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  return const MenuScreen();
+                  return const TabsScreen();
                 }
-                return const MenuScreen();
+                return const LoginScreen();
               },
             ),
     );

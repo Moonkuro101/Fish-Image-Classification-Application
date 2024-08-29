@@ -88,7 +88,7 @@ class _IntroScreenState extends State<IntroScreen> {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder: (context) {
-                            return  LoginScreen();
+                            return  const LoginScreen();
                           },
                         ),
                       );
