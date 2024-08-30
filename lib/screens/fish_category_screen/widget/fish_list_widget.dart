@@ -12,7 +12,7 @@ class FishListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(10),
-      height: 120, // Adjusted height to match the larger image
+      height: 120,
       child: Card(
         shadowColor: Colors.black,
         elevation: 10,
@@ -32,17 +32,17 @@ class FishListWidget extends StatelessWidget {
             child: Row(
               children: [
                 Hero(
-                  tag: 'fish-${fish.name}', // Unique tag for the Hero animation
+                  tag: 'fish-${fish.id}', // Unique tag for Hero animation
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0), // Rounded corners
+                    borderRadius: BorderRadius.circular(8.0),
                     child: Image.network(
                       fish.imageUrl,
-                      width:
-                          120, // Adjusted width to keep the aspect ratio consistent
-                      height:
-                          120, // Ensures it occupies the full height of the container
-                      fit: BoxFit
-                          .cover, // Ensures the image covers the entire area
+                      width: 120,
+                      height: 120,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Icon(Icons.error); // Placeholder for error
+                      },
                     ),
                   ),
                 ),

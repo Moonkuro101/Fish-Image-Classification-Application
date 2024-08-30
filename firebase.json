@@ -1,1 +1,31 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"fishfinder-756b7","appId":"1:485008841512:android:1370381a732cd855c7ce1d","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"fishfinder-756b7","configurations":{"android":"1:485008841512:android:1370381a732cd855c7ce1d","ios":"1:485008841512:ios:71d7c1b5a306a0fbc7ce1d","web":"1:485008841512:web:2944b174b5226641c7ce1d"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "fishfinder-756b7",
+          "appId": "1:485008841512:android:1370381a732cd855c7ce1d",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "fishfinder-756b7",
+          "configurations": {
+            "android": "1:485008841512:android:1370381a732cd855c7ce1d",
+            "ios": "1:485008841512:ios:71d7c1b5a306a0fbc7ce1d",
+            "web": "1:485008841512:web:2944b174b5226641c7ce1d"
+          }
+        }
+      }
+    }
+  },
+  "hosting": {
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
