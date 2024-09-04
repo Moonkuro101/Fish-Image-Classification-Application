@@ -1,5 +1,5 @@
 import 'package:fish_finder/material/font_and_color.dart';
-import 'package:fish_finder/screens/login_and_create/login.dart';
+import 'package:fish_finder/screens/FishFinder/hero_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -12,7 +12,7 @@ class FishFinderContainer extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => const LoginScreen(),
+            builder: (context) => const HeroScreen(),
           ),
         );
       },

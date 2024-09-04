@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fish_finder/material/font_and_color.dart';
+import 'package:fish_finder/screens/FishFinder/hero_screen.dart';
 import 'package:fish_finder/screens/login_and_create/login.dart';
 import 'package:fish_finder/screens/tab_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -71,9 +72,9 @@ class Myapp extends StatelessWidget {
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  return const TabsScreen();
+                  return const HeroScreen();
                 }
-                return const LoginScreen();
+                return const HeroScreen();
               },
             ),
     );

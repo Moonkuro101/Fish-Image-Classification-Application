@@ -17,7 +17,7 @@ class Fish {
   final String lifespan; // New attribute
 
   Fish({
-    required this.id,
+    this.id = '',
     required this.name,
     required this.scientificName,
     required this.description,
