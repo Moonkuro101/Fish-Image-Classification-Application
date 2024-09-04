@@ -53,6 +53,7 @@ class _ImageInputState extends State<ImageInput> {
       width: double.infinity,
       height: 500,
       decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
         border: Border.all(
           width: 1,
           color: Colors.grey,
