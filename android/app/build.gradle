@@ -27,6 +27,10 @@ if (flutterVersionName == null) {
 }
 
 android {
+    aaptOptions {
+        noCompress "tflite"
+    }
+
     namespace = "com.example.fish_finder"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion

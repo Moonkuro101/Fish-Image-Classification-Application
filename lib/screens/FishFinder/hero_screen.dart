@@ -1,9 +1,10 @@
-// hero_screen.dart
 import 'dart:io';
-import 'dart:typed_data';
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/services.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:fish_finder/screens/FishFinder/widget/image_input.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:google_mlkit_image_labeling/google_mlkit_image_labeling.dart';
 
 class HeroScreen extends StatefulWidget {
   const HeroScreen({super.key});
@@ -13,50 +14,109 @@ class HeroScreen extends StatefulWidget {
 }
 
 class _HeroScreenState extends State<HeroScreen> {
-  File? _selectedImageFile;      // For mobile
-  Uint8List? _selectedImageBytes; // For web
+  File? _image;
+  late ImagePicker _picker;
+  late ImageLabeler _imageLabeler;
+  String result = 'Result will be shown here';
 
-  void _selectedImage(dynamic image) {
-    if (!kIsWeb) {
-      setState(() {
-        _selectedImageFile = image as File?;
-      });
-    } else {
-      setState(() {
-        _selectedImageBytes = image as Uint8List?;
-      });
+  @override
+  void initState() {
+    super.initState();
+    _picker = ImagePicker();
+    loadModel();
+  }
+
+  loadModel() async {
+    final modelPath = await getModelPath('assets/ml/fish_metadata.tflite');
+    final options = LocalLabelerOptions(
+      confidenceThreshold: 0.5,
+      modelPath: modelPath,
+    );
+    _imageLabeler = ImageLabeler(options: options);
+  }
+
+  void doImageLabeling() async {
+    if (_image == null) return;
+
+    // Pre-process the image by resizing and normalizing the pixel values.
+    InputImage inputImage = InputImage.fromFile(_image!);
+
+    // Process image using the loaded TensorFlow Lite model.
+    final List<ImageLabel> labels =
+        await _imageLabeler.processImage(inputImage);
+
+    result = '';
+    for (ImageLabel label in labels) {
+      final String text = label.label;
+      final double confidence = label.confidence;
+      result += '$text: ${confidence.toStringAsFixed(2)}\n';
     }
+
+    setState(() {
+      // Update the result in the UI.
+    });
+  }
+
+  Future<String> getModelPath(String asset) async {
+    final path = '${(await getApplicationSupportDirectory()).path}/$asset';
+    await Directory(dirname(path)).create(recursive: true);
+    final file = File(path);
+    if (!await file.exists()) {
+      final byteData = await rootBundle.load(asset);
+      await file.writeAsBytes(byteData.buffer
+          .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+    }
+    return file.path;
+  }
+
+  void imageFromGallery() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile == null) {
+      return;
+    }
+    setState(() {
+      _image = File(pickedFile.path);
+    });
+
+    // Start image labeling after the image is picked
+    doImageLabeling();
+  }
+
+  @override
+  void dispose() {
+    // Clean up resources
+    _imageLabeler.close();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('FishFinder'),
-          centerTitle: true,
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                ImageInput(
-                  onSelectedImage: _selectedImage,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('FishFinder'),
+        centerTitle: true,
+      ),
+      body: Column(
+        children: [
+          _image == null
+              ? const Icon(
+                  Icons.image,
+                  size: 100,
+                )
+              : Image.file(
+                  _image!,
+                  width: 200,
+                  height: 200,
                 ),
-                const SizedBox(height: 20),
-                if (_selectedImageFile != null) ...[
-                  const Text('Selected Image (Mobile):'),
-                  Image.file(_selectedImageFile!),
-                ],
-                if (_selectedImageBytes != null) ...[
-                  const Text('Selected Image (Web):'),
-                  Image.memory(_selectedImageBytes!),
-                ],
-              ],
+          Center(
+            child: ElevatedButton(
+              onPressed: imageFromGallery,
+              child: const Text('Choose Image'),
             ),
           ),
-        ),
+          const SizedBox(height: 20),
+          Text(result),
+        ],
       ),
     );
   }
