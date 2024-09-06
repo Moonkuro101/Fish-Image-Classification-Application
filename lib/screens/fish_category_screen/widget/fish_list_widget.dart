@@ -41,7 +41,7 @@ class FishListWidget extends StatelessWidget {
                       height: 120,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
-                        return Icon(Icons.error); // Placeholder for error
+                        return const Icon(Icons.error); // Placeholder for error
                       },
                     ),
                   ),

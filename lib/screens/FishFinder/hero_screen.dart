@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:fish_finder/material/font_and_color.dart';
+import 'package:fish_finder/screens/FishFinder/widget/mybutton.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -82,6 +84,19 @@ class _HeroScreenState extends State<HeroScreen> {
     doImageLabeling();
   }
 
+  void imageFromCamera() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.camera);
+    if (pickedFile == null) {
+      return;
+    }
+    setState(() {
+      _image = File(pickedFile.path);
+    });
+
+    // Start image labeling after the image is picked
+    doImageLabeling();
+  }
+
   @override
   void dispose() {
     // Clean up resources
@@ -92,31 +107,58 @@ class _HeroScreenState extends State<HeroScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xffF0F5FF),
       appBar: AppBar(
-        title: const Text('FishFinder'),
         centerTitle: true,
+        title: const Text("Image Label example"),
       ),
-      body: Column(
-        children: [
-          _image == null
-              ? const Icon(
-                  Icons.image,
-                  size: 100,
-                )
-              : Image.file(
-                  _image!,
-                  width: 200,
-                  height: 200,
+      body: SingleChildScrollView(
+        child: Container(
+          margin: const EdgeInsets.all(20),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: 500,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(width: 1, color: Colors.grey),
+                  ),
+                  child: _image != null
+                      ? Image.file(
+                          File(_image!.path),
+                          fit: BoxFit.contain,
+                        )
+                      : Center(
+                          child: Text(
+                            'No image selected',
+                            style: fontEnglish.copyWith(fontSize: 20),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
                 ),
-          Center(
-            child: ElevatedButton(
-              onPressed: imageFromGallery,
-              child: const Text('Choose Image'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Mybutton(imageFrom: imageFromGallery, camera: false),
+                    Mybutton(imageFrom: imageFromCamera, camera: true),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  result,
+                  style: const TextStyle(fontSize: 20),
+                )
+              ],
             ),
           ),
-          const SizedBox(height: 20),
-          Text(result),
-        ],
+        ),
       ),
     );
   }
