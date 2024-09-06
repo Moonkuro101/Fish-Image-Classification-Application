@@ -89,40 +89,6 @@ class _HeroScreenState extends State<HeroScreen> {
     super.dispose();
   }
 
-  // Preprocess the image for model input
-  Uint8List preprocessImage(Uint8List imageBytes) {
-    img.Image image = img.decodeImage(imageBytes)!;
-    img.Image resizedImage = img.copyResize(image,
-        width: 224, height: 224); // Assuming 224x224 input size
-    return resizedImage.getBytes();
-  }
-
-  // Run the model on the selected image
-  Future<void> runModelOnImage() async {
-    if (!kIsWeb && _selectedImageFile != null) {
-      final Uint8List imageBytes = await _selectedImageFile!.readAsBytes();
-      final processedImageBytes = preprocessImage(imageBytes);
-      var output = await Tflite.runModelOnBinary(
-        binary: processedImageBytes,
-        numResults: 5,
-        threshold: 0.5,
-      );
-      setState(() {
-        _results = output;
-      });
-    } else if (kIsWeb && _selectedImageBytes != null) {
-      final processedImageBytes = preprocessImage(_selectedImageBytes!);
-      var output = await Tflite.runModelOnBinary(
-        binary: processedImageBytes,
-        numResults: 5,
-        threshold: 0.5,
-      );
-      setState(() {
-        _results = output;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
