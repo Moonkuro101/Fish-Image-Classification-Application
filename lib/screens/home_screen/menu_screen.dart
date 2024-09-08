@@ -12,57 +12,82 @@ class MenuScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
-    return StreamBuilder(
+    
+    if (user == null) {
+      // Handle the case where the user is not logged in
+      return const Center(child: Text('User not logged in'));
+    }
+
+    return StreamBuilder<DocumentSnapshot>(
       stream: FirebaseFirestore.instance
           .collection('users')
-          .doc(user!.uid)
+          .doc(user.uid)
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-              child: CircularProgressIndicator()); // Show loading indicator
+          return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
-          return const Center(
-              child: Text('Error fetching username')); // Show error message
+          return const Center(child: Text('Error fetching username'));
         }
 
         final userdata = snapshot.data!;
         return SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text.rich(
-                  TextSpan(
-                    text: 'Hello',
-                    style: GoogleFonts.inter(
-                        color: const Color(0xff0A9CEB),
-                        fontSize: 26,
-                        fontWeight: FontWeight.w500),
-                    children: [
-                      TextSpan(
-                        text: ',\n${userdata['username']}',
-                        style: GoogleFonts.inter(
-                          color: const Color(0xff062F45),
-                          fontSize: 26,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.lightBlue.shade200,
+                      Colors.white,
                     ],
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10.0),
-                  child: CarouselWidget(),
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text.rich(
+                        TextSpan(
+                          text: 'Hello',
+                          style: GoogleFonts.inter(
+                              color: const Color.fromARGB(255, 47, 110, 139),
+                              fontSize: 26,
+                              fontWeight: FontWeight.w500),
+                          children: [
+                            TextSpan(
+                              text: ',\n${userdata['username']}',
+                              style: GoogleFonts.inter(
+                                color: const Color(0xff062F45),
+                                fontSize: 26,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 10.0),
+                        child: CarouselWidget(),
+                      ),
+                      // Replace Expanded with SizedBox or Container
+                      const SizedBox(
+                        height: 150, // Set an appropriate height
+                        child: FishFinderContainer(),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Menu(),
+                    ],
+                  ),
                 ),
-                const FishFinderContainer(),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Menu(),
-              ],
-            ),
+              )
+            ],
           ),
         );
       },

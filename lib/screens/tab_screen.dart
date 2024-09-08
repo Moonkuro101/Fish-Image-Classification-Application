@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fish_finder/provider/fetch_data_favorite_provider.dart';
-import 'package:fish_finder/screens/fish_category_screen/fish_category.dart';
+import 'package:fish_finder/screens/fish_category_screen/fish_list.dart';
 import 'package:fish_finder/screens/home_screen/menu_screen.dart';
 import 'package:fish_finder/screens/home_screen/widget/drawer_widget.dart';
 
@@ -52,35 +52,33 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color(0xffF0F5FF),
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
-          child: Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: AppBar(
-              title: Text(activePageTitle),
-              centerTitle: true,
-              leading: Builder(
-                builder: (BuildContext context) {
-                  return Padding(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: IconButton(
-                      icon: const Icon(Icons.menu, size: 30, color: Color.fromARGB(255, 4, 6, 10)),
-                      onPressed: () {
-                        Scaffold.of(context).openDrawer();
-                      },
-                    ),
-                  );
-                },
-              ),
-              actions: [
-                IconButton(
-                  onPressed: () => FirebaseAuth.instance.signOut(),
-                  icon: const Icon(Icons.exit_to_app, color: Colors.white),
+        appBar: AppBar(
+          backgroundColor: Colors.lightBlue.shade200,
+          title: Text(activePageTitle,
+              style: const TextStyle(
+                  color: Color.fromARGB(255, 15, 54, 71),
+                  fontWeight: FontWeight.bold)),
+          centerTitle: true,
+          leading: Builder(
+            builder: (BuildContext context) {
+              return Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: IconButton(
+                  icon: const Icon(Icons.menu,
+                      size: 30, color: Color.fromARGB(255, 4, 6, 10)),
+                  onPressed: () {
+                    Scaffold.of(context).openDrawer();
+                  },
                 ),
-              ],
-            ),
+              );
+            },
           ),
+          actions: [
+            IconButton(
+              onPressed: () => FirebaseAuth.instance.signOut(),
+              icon: const Icon(Icons.exit_to_app, color: Colors.white),
+            ),
+          ],
         ),
         drawer: const DrawerWidget(),
         body: activePage,

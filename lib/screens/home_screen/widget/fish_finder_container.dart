@@ -28,7 +28,10 @@ class FishFinderContainer extends StatelessWidget {
             )
           ],
           gradient: const LinearGradient(
-            colors: [Color(0xff52CFFA), Color(0xff52A9FA)],
+            colors: [
+              Color(0xff52CFFA),
+              Color(0xff52A9FA),
+            ],
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
           ),

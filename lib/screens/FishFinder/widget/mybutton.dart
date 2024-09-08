@@ -8,10 +8,10 @@ class Mybutton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 5),
       padding: const EdgeInsets.symmetric(vertical: 20),
+      height: 100,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           shadowColor: Colors.grey[400],
@@ -30,7 +30,7 @@ class Mybutton extends StatelessWidget {
               Icon(
                 camera ? Icons.camera_alt : Icons.image,
                 size: 30,
-                color: Colors.red,
+                color: const Color(0xffFE7A36),
               ),
               Text(
                 camera ? 'Camera' : 'Gallery',

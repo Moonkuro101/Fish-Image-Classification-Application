@@ -1,5 +1,5 @@
 import 'package:fish_finder/material/font_and_color.dart';
-import 'package:fish_finder/screens/fish_category_screen/fish_category.dart';
+import 'package:fish_finder/screens/fish_category_screen/fish_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fish_finder/provider/fish_provider.dart';
