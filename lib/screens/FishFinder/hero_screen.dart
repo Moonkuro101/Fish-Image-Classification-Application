@@ -192,6 +192,11 @@ class _HeroScreenState extends ConsumerState<HeroScreen> {
                             Mybutton(imageFrom: imageFromCamera, camera: true)),
                   ],
                 ),
+                if (fish != null)
+                  SizedBox(
+                    height: 150, // Adjust height as needed
+                    child: MyListView(fishList: [fish!]),
+                  ),
                 ElevatedButton(
                   onPressed: _image == null ? null : doImageLabeling,
                   style: ElevatedButton.styleFrom(
@@ -205,9 +210,7 @@ class _HeroScreenState extends ConsumerState<HeroScreen> {
                     style: fontEnglish.copyWith(fontSize: 16),
                   ),
                 ),
-                const SizedBox(
-                  height: 40,
-                ),
+                const SizedBox(height: 20,),
                 Center(
                   child: loadImage
                       ? const CircularProgressIndicator()
@@ -217,11 +220,6 @@ class _HeroScreenState extends ConsumerState<HeroScreen> {
                           style: const TextStyle(fontSize: 20),
                         ),
                 ),
-                if (fish != null)
-                  SizedBox(
-                    height: 200, // Adjust height as needed
-                    child: MyListView(fishList: [fish!]),
-                  )
               ],
             ),
           ),

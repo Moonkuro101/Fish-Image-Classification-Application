@@ -85,9 +85,11 @@ flutter:
     - assets/images/carousel/
     - assets/images/
     - assets/ml/fish_metadata.tflite
+    - assets/background_image/main_top.png
+    - assets/background_image/login_bottom.png
 
 
-    # - assets\images\main\
+    # - assets/images/main/
 
 
 

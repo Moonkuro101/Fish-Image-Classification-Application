@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fish_finder/screens/history_screen/history_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fish_finder/provider/fetch_data_favorite_provider.dart';
@@ -50,6 +51,11 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
       );
     }
 
+    if (_selectedPageIndex == 2) {
+      activePageTitle = 'Your History';
+      activePage = const HistoryScreen(historylist: [],);
+    }
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -94,6 +100,10 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
               icon: Icon(Icons.star),
               label: 'Favorites',
             ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.history),
+              label: 'History',
+            )
           ],
         ),
       ),

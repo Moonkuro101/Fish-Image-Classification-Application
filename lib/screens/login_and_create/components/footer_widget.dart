@@ -48,12 +48,12 @@ class FooterWidget extends StatelessWidget {
           TextButton(
             onPressed: () {
               isLogin
-                  ? Navigator.of(context).pushReplacement(
+                  ? Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => const CreateAccount(),
                       ),
                     )
-                  : Navigator.of(context).pushReplacement(
+                  : Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => const LoginScreen(),
                       ),

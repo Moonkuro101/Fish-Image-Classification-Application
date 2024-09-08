@@ -113,7 +113,7 @@ class _BodyFormState extends State<BodyForm> {
     return Form(
       key: _formKey,
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

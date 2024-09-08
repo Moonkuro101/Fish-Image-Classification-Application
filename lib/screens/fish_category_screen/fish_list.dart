@@ -13,8 +13,20 @@ class FishListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     if (fishList.isEmpty) {
-      return const Center(
-        child: Text('No fish found'),
+      return Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.lightBlue.shade200,
+              Colors.white,
+            ],
+          ),
+        ),
+        child: const Center(
+          child: Text('No fish found'),
+        ),
       );
     }
 
@@ -30,7 +42,9 @@ class FishListScreen extends ConsumerWidget {
             ],
           ),
         ),
-        child: MyListView(fishList: fishList,)
+        child: MyListView(
+          fishList: fishList,
+        ),
       );
     }
 
@@ -51,12 +65,8 @@ class FishListScreen extends ConsumerWidget {
             ],
           ),
         ),
-        child: ListView.builder(
-          itemCount: fishList.length,
-          itemBuilder: (context, index) {
-            final fish = fishList[index];
-            return FishListWidget(fish: fish);
-          },
+        child: MyListView(
+          fishList: fishList,
         ),
       ),
     );
