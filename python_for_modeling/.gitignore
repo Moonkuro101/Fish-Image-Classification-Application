@@ -1,0 +1,6 @@
+# Ignore virtual environment
+.venv/
+
+# Ignore image_data directory
+image_data/
+organized_data/

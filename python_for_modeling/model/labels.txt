@@ -1,0 +1,19 @@
+0 ArcticCharFish 
+1 Black Sea Sprat 
+2 Gilt-Head Bream 
+3 Hourse Mackerel 
+4 Red Mullet 
+5 Red Sea Bream 
+6 Red-snapper 
+7 SardineFish 
+8 Sea Bass 
+9 Shrimp 
+10 Striped Red Mullet 
+11 TilapiaFish 
+12 Trout 
+13 bassfish
+14 catfish
+15 haddockfish
+16 salmon
+17 swordfish
+18 tuna
