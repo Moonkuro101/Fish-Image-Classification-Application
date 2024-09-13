@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fish_finder/provider/fetch_data_favorite_provider.dart';
 import 'package:fish_finder/screens/fish_category_screen/fish_list.dart';
 import 'package:fish_finder/screens/home_screen/menu_screen.dart';
-import 'package:fish_finder/screens/home_screen/widget/drawer_widget.dart';
 
 class TabsScreen extends ConsumerStatefulWidget {
   const TabsScreen({super.key});
@@ -53,7 +52,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
 
     if (_selectedPageIndex == 2) {
       activePageTitle = 'Your History';
-      activePage = const HistoryScreen(historylist: [],);
+      activePage = const HistoryScreen();
     }
 
     return SafeArea(
@@ -65,20 +64,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
                   color: Color.fromARGB(255, 15, 54, 71),
                   fontWeight: FontWeight.bold)),
           centerTitle: true,
-          leading: Builder(
-            builder: (BuildContext context) {
-              return Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: IconButton(
-                  icon: const Icon(Icons.menu,
-                      size: 30, color: Color.fromARGB(255, 4, 6, 10)),
-                  onPressed: () {
-                    Scaffold.of(context).openDrawer();
-                  },
-                ),
-              );
-            },
-          ),
+          
           actions: [
             IconButton(
               onPressed: () => FirebaseAuth.instance.signOut(),
@@ -86,7 +72,6 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
             ),
           ],
         ),
-        drawer: const DrawerWidget(),
         body: activePage,
         bottomNavigationBar: BottomNavigationBar(
           onTap: _selectPage,

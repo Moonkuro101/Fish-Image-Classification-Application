@@ -38,7 +38,7 @@ class Menu extends ConsumerWidget {
               child: Column(
                 children: [
                   Text(
-                    'คู่มือการใช้งาน\nแอพพลิเคชั่น',
+                    'คู่มือการใช้งาน\nแอปพลิเคชั่น',
                     textAlign: TextAlign.center,
                     style: fontThai.copyWith(
                       fontWeight: FontWeight.bold,

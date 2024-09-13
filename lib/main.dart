@@ -1,16 +1,17 @@
+// main.dart
+import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fish_finder/material/font_and_color.dart';
 import 'package:fish_finder/screens/login_and_create/login.dart';
+import 'package:fish_finder/screens/splash_screen.dart';
 import 'package:fish_finder/screens/tab_screen.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final kColorScheme = ColorScheme.fromSeed(
-  seedColor: const Color(
-    0xfff7eedd,
-  ),
+  seedColor: const Color(0xfff7eedd),
 );
 
 final theme = ThemeData(
@@ -55,15 +56,56 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: theme,
       debugShowCheckedModeBanner: false,
-      home: StreamBuilder(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return const TabsScreen();
-          }
-          return const LoginScreen();
-        },
-      ),
+      home: const SplashScreenWrapper(),
+    );
+  }
+}
+
+class SplashScreenWrapper extends StatefulWidget {
+  const SplashScreenWrapper({super.key});
+
+  @override
+  State<SplashScreenWrapper> createState() => _SplashScreenWrapperState();
+}
+
+class _SplashScreenWrapperState extends State<SplashScreenWrapper> {
+  late Future<void> _initialization;
+
+  @override
+  void initState() {
+    super.initState();
+    _initialization = _initialize();
+  }
+
+  Future<void> _initialize() async {
+    await Future.delayed(const Duration(seconds: 2)); // Ensure splash screen is shown for 2 seconds
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<void>(
+      future: _initialization,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          // Show the splash screen
+          return const SplashScreen();
+        } else {
+          // Check the authentication state
+          return StreamBuilder<User?>(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (context, snapshot) {
+ 
+              if (snapshot.hasData) {
+                // User is authenticated
+                return const TabsScreen();
+              } else {
+                // User is not authenticated
+                return const LoginScreen();
+              }
+            },
+          );
+        }
+      },
     );
   }
 }
