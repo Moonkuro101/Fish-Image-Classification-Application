@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fish_finder/screens/home_screen/widget/carousel.dart';
-import 'package:fish_finder/screens/home_screen/widget/fish_finder_container.dart';
-import 'package:fish_finder/screens/home_screen/widget/menu.dart';
+import 'package:fish_finder/screens/home_screen/components/carousel.dart';
+import 'package:fish_finder/screens/home_screen/components/fish_finder_container.dart';
+import 'package:fish_finder/screens/home_screen/components/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

@@ -1,5 +1,5 @@
 import 'package:fish_finder/model/fish.dart';
-import 'package:fish_finder/screens/fish_category_screen/widget/fish_list_widget.dart';
+import 'package:fish_finder/screens/fish_category_screen/components/fish_list_widget.dart';
 import 'package:flutter/material.dart';
 
 class MyListView extends StatelessWidget{

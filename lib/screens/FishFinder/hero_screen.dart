@@ -6,8 +6,8 @@ import 'package:fish_finder/material/font_and_color.dart';
 import 'package:fish_finder/model/fish.dart';
 import 'package:fish_finder/model/history_model.dart';
 import 'package:fish_finder/provider/fish_provider.dart';
-import 'package:fish_finder/screens/FishFinder/widget/mybutton.dart';
-import 'package:fish_finder/screens/fish_category_screen/widget/my_list_view.dart';
+import 'package:fish_finder/screens/FishFinder/components/mybutton.dart';
+import 'package:fish_finder/screens/fish_category_screen/components/my_list_view.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart';
@@ -39,7 +39,7 @@ class _HeroScreenState extends ConsumerState<HeroScreen> {
   }
 
   Future<void> loadModel() async {
-    final modelPath = await getModelPath('assets/ml/fish_metadata.tflite');
+    final modelPath = await getModelPath('assets/ml/food_metadata.tflite');
     final options = LocalLabelerOptions(
       confidenceThreshold: 0.5,
       modelPath: modelPath,
